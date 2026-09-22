@@ -7,4 +7,4 @@
 // is edited and every code that was ever printed keeps working.
 //
 // Set to null to show the "demo is offline" message instead of forwarding.
-window.DEMO_BASE = 'https://0b7e570e024df6.lhr.life';
+window.DEMO_BASE = 'https://95022b083f59f6.lhr.life';

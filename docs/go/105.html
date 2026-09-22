@@ -24,16 +24,27 @@
 <script>
 (function(){
   var path = '/s/105-1-07ac1dc16d2bc337';
-  if (window.DEMO_BASE) {
-    var url = window.DEMO_BASE + path;
-    document.getElementById('link').href = url;
-    location.replace(url);
-  } else {
-    document.getElementById('h').textContent = 'The demo is offline right now';
-    document.getElementById('p').textContent =
-      'It runs on a development machine, so it is not up around the clock. Message me and I will start it again — this link will then work as it is.';
-    document.getElementById('link').style.display = 'none';
+  var box  = document.getElementById('h'), msg = document.getElementById('p'), link = document.getElementById('link');
+
+  function offline(){
+    box.textContent = 'The demo is paused right now';
+    msg.textContent = 'It runs on a development machine, so it is not up around the clock. Message me and I will start it again - this link does not change, so it will work as it is.';
+    link.style.display = 'none';
   }
+
+  if (!window.DEMO_BASE) { offline(); return; }
+
+  var url = window.DEMO_BASE + path;
+  link.href = url;
+
+  // Check the demo is actually answering before sending anyone to it. The
+  // tunnel it sits behind goes down without warning, and a guest who scanned a
+  // code should get a sentence they understand, not the tunnel's error page.
+  var settled = false;
+  var timer = setTimeout(function(){ if (!settled) { settled = true; offline(); } }, 6000);
+  fetch(window.DEMO_BASE + '/healthz', { mode: 'no-cors', cache: 'no-store' })
+    .then(function(){ if (!settled) { settled = true; clearTimeout(timer); location.replace(url); } })
+    .catch(function(){ if (!settled) { settled = true; clearTimeout(timer); offline(); } });
 })();
 </script>
 </body>
