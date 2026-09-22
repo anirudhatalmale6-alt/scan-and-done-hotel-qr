@@ -34,7 +34,12 @@ app.use((req, res, next) => {
 
 // Liveness. The QR forwarding pages hit this before sending a guest onward, so
 // a demo that is down produces a sentence rather than a tunnel error page.
-app.get('/healthz', (req, res) => res.type('text/plain').send('ok'));
+// CORS is deliberate and only on this route: the forwarding page must be able
+// to tell "my app answered" from "something else answered". Without a readable
+// response the tunnel's own error page looks identical to a healthy demo.
+app.get('/healthz', (req, res) =>
+  res.set('Access-Control-Allow-Origin', '*').type('text/plain').send('scan-and-done ok')
+);
 
 app.use('/admin', admin);
 app.use('/', guest);

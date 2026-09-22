@@ -46,11 +46,17 @@ make_page() {
   // Check the demo is actually answering before sending anyone to it. The
   // tunnel it sits behind goes down without warning, and a guest who scanned a
   // code should get a sentence they understand, not the tunnel's error page.
+  // A readable response is the point. With mode:'no-cors' the reply is opaque,
+  // and the tunnel's own "no tunnel here" error page looks exactly like a
+  // healthy demo - which is what happened the first time I wrote this. /healthz
+  // sends CORS headers, so only the real application can satisfy this check.
   var settled = false;
-  var timer = setTimeout(function(){ if (!settled) { settled = true; offline(); } }, 6000);
-  fetch(window.DEMO_BASE + '/healthz', { mode: 'no-cors', cache: 'no-store' })
-    .then(function(){ if (!settled) { settled = true; clearTimeout(timer); location.replace(url); } })
-    .catch(function(){ if (!settled) { settled = true; clearTimeout(timer); offline(); } });
+  function decide(ok){ if (settled) return; settled = true; clearTimeout(timer); ok ? location.replace(url) : offline(); }
+  var timer = setTimeout(function(){ decide(false); }, 6000);
+  fetch(window.DEMO_BASE + '/healthz', { cache: 'no-store' })
+    .then(function(r){ return r.ok ? r.text() : ''; })
+    .then(function(t){ decide(t.indexOf('scan-and-done ok') === 0); })
+    .catch(function(){ decide(false); });
 })();
 </script>
 </body>
