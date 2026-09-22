@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Opening room 105 (empty room)…</title>
+<style>
+  body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0f1d2e;color:#fdfbf7;
+       font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;text-align:center;padding:2rem}
+  .box{max-width:22rem}
+  h1{font-size:1.2rem;margin:0 0 .5rem}
+  p{color:#c3d0de;font-size:.9rem;margin:0 0 1rem}
+  a{display:inline-block;padding:.8rem 1.3rem;border-radius:12px;background:#c9a227;color:#14202e;
+    font-weight:700;text-decoration:none}
+</style>
+<script src="base.js"></script>
+</head>
+<body>
+<div class="box">
+  <h1 id="h">Opening room 105 (empty room)…</h1>
+  <p id="p">One moment.</p>
+  <a id="link" href="#">Continue</a>
+</div>
+<script>
+(function(){
+  var path = '/s/105-1-07ac1dc16d2bc337';
+  if (window.DEMO_BASE) {
+    var url = window.DEMO_BASE + path;
+    document.getElementById('link').href = url;
+    location.replace(url);
+  } else {
+    document.getElementById('h').textContent = 'The demo is offline right now';
+    document.getElementById('p').textContent =
+      'It runs on a development machine, so it is not up around the clock. Message me and I will start it again — this link will then work as it is.';
+    document.getElementById('link').style.display = 'none';
+  }
+})();
+</script>
+</body>
+</html>

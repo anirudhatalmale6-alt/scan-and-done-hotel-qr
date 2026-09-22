@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scan-and-Done — in-room QR to direct booking</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:#f4f1ec;color:#16212e;
+       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+       -webkit-font-smoothing:antialiased}
+  .hero{background:linear-gradient(168deg,#0f1d2e 0%,#17304b 100%);color:#fdfbf7;padding:3rem 1.5rem 2.5rem}
+  .inner{max-width:62rem;margin:0 auto}
+  .eyebrow{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#c9a227;font-weight:700;margin-bottom:.6rem}
+  h1{margin:0 0 .6rem;font-size:2rem;letter-spacing:-.02em;line-height:1.15}
+  .hero p{margin:0;color:#c3d0de;max-width:42rem}
+  main{max-width:62rem;margin:0 auto;padding:2rem 1.5rem 4rem}
+  h2{font-size:1.15rem;margin:2.5rem 0 .3rem;letter-spacing:-.01em}
+  h2:first-child{margin-top:0}
+  .note{color:#6b7b8d;font-size:.9rem;margin:.2rem 0 1rem}
+  .links{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));margin:1rem 0 0}
+  .card{display:block;background:#fff;border:1px solid rgba(15,29,46,.08);border-radius:12px;padding:1rem 1.1rem;
+        text-decoration:none;color:inherit;box-shadow:0 1px 2px rgba(15,29,46,.05)}
+  .card strong{display:block;font-size:1rem;margin-bottom:.15rem}
+  .card span{font-size:.83rem;color:#6b7b8d}
+  .card:hover{border-color:#c9a227}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid rgba(15,29,46,.08);
+        border-radius:12px;overflow:hidden;font-size:.9rem;margin-top:.6rem}
+  th,td{text-align:left;padding:.6rem .8rem;border-bottom:1px solid #eceae5}
+  th{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:#8b96a2;background:#faf8f4}
+  tr:last-child td{border-bottom:0}
+  code{background:#eceae5;padding:.12rem .38rem;border-radius:5px;font-size:.87em}
+  .shots{display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));margin-top:1rem}
+  figure{margin:0}
+  figure img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid rgba(15,29,46,.1);
+             box-shadow:0 10px 30px -18px rgba(15,29,46,.5);background:#fff}
+  figcaption{font-size:.83rem;color:#6b7b8d;margin-top:.5rem}
+  .wide{grid-column:1/-1;max-width:46rem}
+  footer{border-top:1px solid #e4e0d8;margin-top:3rem;padding-top:1.2rem;color:#7b8896;font-size:.85rem}
+  @media (max-width:40rem){h1{font-size:1.6rem}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="inner">
+    <div class="eyebrow">Working prototype</div>
+    <h1>Scan-and-Done — in-room QR to direct booking</h1>
+    <p>A guest scans the card in their room. No app, no login, no typing. The page knows which room it is,
+       looks up who is checked in right now, reads the rate they paid the OTA, and offers a lower direct
+       price they can pay in a few taps.</p>
+  </div>
+</div>
+
+<main>
+
+<h2>Try it</h2>
+<p class="note">Open these on a phone if you can — that is what a guest holds. Nothing is charged; the payment
+   step is a sandbox.</p>
+<div class="links">
+  <a class="card" href="go/402.html"><strong>Room 402</strong><span>Maria, booked via Booking.com at €189/night</span></a>
+  <a class="card" href="go/511.html"><strong>Room 511</strong><span>Daniel, via Expedia at €245/night</span></a>
+  <a class="card" href="go/104.html"><strong>Room 104</strong><span>Sofia, via Agoda at €119/night</span></a>
+  <a class="card" href="go/403.html"><strong>Room 403</strong><span>Nobody checked in — the empty-room path</span></a>
+  <a class="card" href="go/admin.html"><strong>Property dashboard</strong><span>login <code>admin</code> / <code>demo</code></span></a>
+</div>
+
+<h2>Test cards</h2>
+<table>
+  <tr><th>Number</th><th>Result</th></tr>
+  <tr><td><code>4242 4242 4242 4242</code></td><td>Approved</td></tr>
+  <tr><td><code>4000 0000 0000 0002</code></td><td>Declined by the bank</td></tr>
+</table>
+<p class="note">Any future expiry, any 3-digit code. No card data is stored beyond the brand and last four.</p>
+
+<h2>What a guest sees</h2>
+<div class="shots">
+  <figure>
+    <img src="1-offers.png" alt="The offer page for room 402">
+    <figcaption>Straight after the scan. Name, room, channel, the €189 rate and the direct price built from it
+      all come out of the database for that one booking.</figcaption>
+  </figure>
+  <figure>
+    <img src="2-checkout.png" alt="Checkout">
+    <figcaption>Checkout. The OTA price stays on screen, struck through, next to what they pay.</figcaption>
+  </figure>
+  <figure>
+    <img src="3-confirmed.png" alt="Confirmation">
+    <figcaption>Paid and confirmed. The reservation is pushed back to the property system; there is nothing
+      for the guest to collect.</figcaption>
+  </figure>
+  <figure>
+    <img src="4-declined.png" alt="A declined card">
+    <figcaption>A declined card. Nothing is marked sold, and the guest is told plainly.</figcaption>
+  </figure>
+  <figure>
+    <img src="5-empty-room.png" alt="Empty room">
+    <figcaption>A code scanned in a room with nobody checked in. It never falls back to another guest's stay.</figcaption>
+  </figure>
+</div>
+
+<h2>What the property sees</h2>
+<div class="shots">
+  <figure class="wide">
+    <img src="6-admin-dashboard.png" alt="Admin dashboard">
+    <figcaption>Scans, how many reached a guest, conversion, revenue, and the channel commission the property
+      stops paying on each direct sale.</figcaption>
+  </figure>
+  <figure class="wide">
+    <img src="7-admin-codes.png" alt="Printable room codes">
+    <figcaption>One permanent code per room, ready to print. The code carries no guest data — who is in the
+      room is resolved at scan time, so the same card serves every guest who ever stays there.</figcaption>
+  </figure>
+  <figure class="wide">
+    <img src="8-admin-bookings.png" alt="Direct bookings">
+    <figcaption>Every direct sale, what it would have cost on the channel, and whether the push into the
+      property system succeeded.</figcaption>
+  </figure>
+</div>
+
+<h2>The QR itself</h2>
+<div class="shots">
+  <figure>
+    <img src="qr-room-402.png" alt="QR code for room 402">
+    <figcaption>The in-room card for room 402. Scan it with a phone camera.</figcaption>
+  </figure>
+</div>
+
+<footer>
+  Source: <a href="https://github.com/anirudhatalmale6-alt/scan-and-done-hotel-qr">github.com/anirudhatalmale6-alt/scan-and-done-hotel-qr</a><br>
+  The live demo runs on a development machine, so it is not up around the clock. If a link says the demo is
+  offline, message me and I will start it again — the links here do not change.
+</footer>
+
+</main>
+</body>
+</html>

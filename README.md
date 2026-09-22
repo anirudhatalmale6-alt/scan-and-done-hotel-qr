@@ -8,6 +8,18 @@ pay in a few taps. The sale is pushed straight back into the PMS.
 This is a working prototype of that loop, end to end, with a mock PMS standing
 in until the real one is wired up.
 
+**Demo and screenshots:**
+<https://anirudhatalmale6-alt.github.io/scan-and-done-hotel-qr/>
+
+## Why the QR points at GitHub Pages
+
+The demo runs on a development machine behind a tunnel whose hostname changes on
+every reconnect. A printed QR code cannot change. So every code points at a
+stable page in `docs/go/`, which forwards to whatever address the demo is on
+today — the address is written in exactly one place, `docs/go/base.js`. That
+indirection is not a demo hack: a property that prints 200 cards wants the same
+property, so the code outlives any move of the application.
+
 ## Run it
 
 ```bash
