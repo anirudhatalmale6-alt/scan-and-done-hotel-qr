@@ -7,4 +7,7 @@
 // is edited and every code that was ever printed keeps working.
 //
 // Set to null to show the "demo is offline" message instead of forwarding.
-window.DEMO_BASE = 'https://268cd59ae94451.lhr.life';
+// Currently null: the live server is not running, so codes go straight to the
+// always-on preview with no waiting. Set it back to the tunnel address when
+// running a live walkthrough and the forwarders will prefer the full system.
+window.DEMO_BASE = null;
