@@ -31,6 +31,11 @@
   tr:last-child td{border-bottom:0}
   code{background:#eceae5;padding:.12rem .38rem;border-radius:5px;font-size:.87em}
   .shots{display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));margin-top:1rem}
+  .qrs{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));margin-top:1rem}
+  .qrs figure{background:#fff;border:1px solid rgba(15,29,46,.08);border-radius:12px;padding:.8rem;text-align:center}
+  .qrs img{width:100%;height:auto;display:block;border:0;box-shadow:none;border-radius:0}
+  .qrs figcaption{font-size:.8rem;color:#6b7b8d;margin-top:.5rem}
+  .qrs figcaption strong{display:block;color:#16212e;font-size:1rem}
   figure{margin:0}
   figure img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid rgba(15,29,46,.1);
              box-shadow:0 10px 30px -18px rgba(15,29,46,.5);background:#fff}
@@ -119,12 +124,16 @@
   </figure>
 </div>
 
-<h2>The QR itself</h2>
-<div class="shots">
-  <figure>
-    <img src="qr-room-402.png" alt="QR code for room 402">
-    <figcaption>The in-room card for room 402. Scan it with a phone camera.</figcaption>
-  </figure>
+<h2>Scan a room</h2>
+<p class="note">These are live. Point a phone camera at any of them — every one of these codes works, and keeps
+   working, because it encodes this page's address rather than wherever the demo server happens to be running.</p>
+<div class="qrs">
+  <figure><img src="qr/402.png" alt="QR code for room 402"><figcaption><strong>402</strong> Maria · Booking.com</figcaption></figure>
+  <figure><img src="qr/511.png" alt="QR code for room 511"><figcaption><strong>511</strong> Daniel · Expedia</figcaption></figure>
+  <figure><img src="qr/104.png" alt="QR code for room 104"><figcaption><strong>104</strong> Sofia · Agoda</figcaption></figure>
+  <figure><img src="qr/512.png" alt="QR code for room 512"><figcaption><strong>512</strong> Tom · Booking.com</figcaption></figure>
+  <figure><img src="qr/403.png" alt="QR code for room 403"><figcaption><strong>403</strong> empty room</figcaption></figure>
+  <figure><img src="qr/105.png" alt="QR code for room 105"><figcaption><strong>105</strong> empty room</figcaption></figure>
 </div>
 
 <footer>

@@ -15,6 +15,13 @@ module.exports = {
   // Public base URL that the printed QR codes point at.
   publicUrl: (process.env.PUBLIC_URL || '').replace(/\/+$/, ''),
 
+  // What a printed code actually encodes. Default is this server's own scan
+  // route. It is a template because the code has to outlive the address: a
+  // property that prints 200 cards cannot reprint them when the app moves, so
+  // the codes can be pointed at a redirector instead.
+  //   {token} -> signed room token, {room} -> room number
+  qrUrlTemplate: process.env.QR_URL_TEMPLATE || '',
+
   currency: process.env.CURRENCY || 'EUR',
   locale: process.env.LOCALE || 'en-IE',
 

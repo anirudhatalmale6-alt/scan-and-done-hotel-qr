@@ -144,7 +144,11 @@ router.get('/codes', async (req, res) => {
   const base = publicBase(req);
   const cards = await Promise.all(
     rooms.map(async (room) => {
-      const url = `${base}/s/${tokens.buildRoomToken(room)}`;
+      const url = config.qrUrlTemplate
+        ? config.qrUrlTemplate
+            .replace('{token}', tokens.buildRoomToken(room))
+            .replace('{room}', room.room_number)
+        : `${base}/s/${tokens.buildRoomToken(room)}`;
       const png = await QRCode.toDataURL(url, { margin: 1, width: 360, errorCorrectionLevel: 'M' });
       return `<div class="qr-card">
         <img src="${png}" alt="QR code for room ${esc(room.room_number)}">
