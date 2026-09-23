@@ -11,6 +11,27 @@ in until the real one is wired up.
 **Demo and screenshots:**
 <https://anirudhatalmale6-alt.github.io/scan-and-done-hotel-qr/>
 
+## Two places a code can land
+
+The application is a Node server. Exposing a development machine publicly means
+a tunnel, and tunnels drop — a link that is dead when someone opens it is worse
+than no link. So every code resolves to one of two places:
+
+* **The live server**, when it is running — the full system: signed QR tokens,
+  scan sessions, server-side pricing, payment handling, the PMS push, the admin
+  dashboard.
+* **An always-on preview** (`docs/demo/`) otherwise — the guest screens only,
+  running in the browser against a snapshot of the seeded database.
+
+The forwarding page asks the server's `/healthz` which one to use, and falls
+back rather than apologising.
+
+The preview is built by `npm run build:demo`, which **re-emits `src/pricing.js`
+for the browser** instead of reimplementing it. The two cannot drift: the prices
+on the preview are the prices the server computes. What the preview does not
+simulate — the signed token, the scan session, the gateway, the PMS push — is
+exactly the part that has no business running in a browser.
+
 ## Why the QR points at GitHub Pages
 
 The demo runs on a development machine behind a tunnel whose hostname changes on

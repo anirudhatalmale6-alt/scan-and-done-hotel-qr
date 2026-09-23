@@ -1,0 +1,97 @@
+{
+  "builtFor": "2026-09-23",
+  "hotel": {
+    "name": "Harbour View Hotel",
+    "tagline": "Direct guest rates"
+  },
+  "rooms": [
+    {
+      "id": 5,
+      "room_number": "104",
+      "room_type": "Standard Twin"
+    },
+    {
+      "id": 6,
+      "room_number": "105",
+      "room_type": "Standard Twin"
+    },
+    {
+      "id": 1,
+      "room_number": "402",
+      "room_type": "Deluxe Double"
+    },
+    {
+      "id": 2,
+      "room_number": "403",
+      "room_type": "Deluxe Double"
+    },
+    {
+      "id": 3,
+      "room_number": "511",
+      "room_type": "Sea View King"
+    },
+    {
+      "id": 4,
+      "room_number": "512",
+      "room_type": "Junior Suite"
+    }
+  ],
+  "bookings": [
+    {
+      "id": 1,
+      "room_id": 1,
+      "check_in": "2026-09-23",
+      "check_out": "2026-09-26",
+      "adults": 2,
+      "status": "in_house",
+      "source": "booking.com",
+      "ota_nightly_cents": 18900,
+      "currency": "EUR",
+      "first_name": "Maria",
+      "last_name": "Kovac",
+      "email": "maria.kovac@example.com"
+    },
+    {
+      "id": 2,
+      "room_id": 3,
+      "check_in": "2026-09-22",
+      "check_out": "2026-09-25",
+      "adults": 2,
+      "status": "in_house",
+      "source": "expedia",
+      "ota_nightly_cents": 24500,
+      "currency": "EUR",
+      "first_name": "Daniel",
+      "last_name": "Okafor",
+      "email": "d.okafor@example.com"
+    },
+    {
+      "id": 3,
+      "room_id": 5,
+      "check_in": "2026-09-24",
+      "check_out": "2026-09-27",
+      "adults": 2,
+      "status": "in_house",
+      "source": "agoda",
+      "ota_nightly_cents": 11900,
+      "currency": "EUR",
+      "first_name": "Sofia",
+      "last_name": "Lindqvist",
+      "email": "sofia.l@example.com"
+    },
+    {
+      "id": 4,
+      "room_id": 4,
+      "check_in": "2026-09-21",
+      "check_out": "2026-09-25",
+      "adults": 2,
+      "status": "in_house",
+      "source": "booking.com",
+      "ota_nightly_cents": 31000,
+      "currency": "EUR",
+      "first_name": "Tom",
+      "last_name": "Bradley",
+      "email": "tom.bradley@example.com"
+    }
+  ]
+}

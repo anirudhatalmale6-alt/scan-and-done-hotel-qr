@@ -23,30 +23,27 @@
 </div>
 <script>
 (function(){
-  var path = '/s/104-1-09e41767ce6ac501';
-  var box  = document.getElementById('h'), msg = document.getElementById('p'), link = document.getElementById('link');
+  var path   = '/s/104-1-09e41767ce6ac501';
+  var stat   = '../demo/index.html?room=104';
+  var box = document.getElementById('h'), msg = document.getElementById('p'), link = document.getElementById('link');
 
-  function offline(){
-    box.textContent = 'The demo is paused right now';
-    msg.textContent = 'It runs on a development machine, so it is not up around the clock. Message me and I will start it again - this link does not change, so it will work as it is.';
-    link.style.display = 'none';
-  }
+  function go(url){ link.href = url; location.replace(url); }
 
-  if (!window.DEMO_BASE) { offline(); return; }
+  // Two places this can land. The live server is the full system - signed QR
+  // tokens, scan sessions, real payment handling, the PMS push. It runs on a
+  // development machine, so it is not up around the clock. The always-on
+  // preview runs the same pricing code in the browser and is always there.
+  // Prefer the live one, fall back rather than apologise.
+  if (!window.DEMO_BASE) { go(stat); return; }
 
-  var url = window.DEMO_BASE + path;
-  link.href = url;
-
-  // Check the demo is actually answering before sending anyone to it. The
-  // tunnel it sits behind goes down without warning, and a guest who scanned a
-  // code should get a sentence they understand, not the tunnel's error page.
-  // A readable response is the point. With mode:'no-cors' the reply is opaque,
-  // and the tunnel's own "no tunnel here" error page looks exactly like a
-  // healthy demo - which is what happened the first time I wrote this. /healthz
-  // sends CORS headers, so only the real application can satisfy this check.
   var settled = false;
-  function decide(ok){ if (settled) return; settled = true; clearTimeout(timer); ok ? location.replace(url) : offline(); }
-  var timer = setTimeout(function(){ decide(false); }, 6000);
+  function decide(live){ if (settled) return; settled = true; clearTimeout(timer); go(live ? window.DEMO_BASE + path : stat); }
+  var timer = setTimeout(function(){ decide(false); }, 5000);
+
+  // A readable response is the point. With mode:'no-cors' the reply is opaque
+  // and the tunnel's own error page looks exactly like a healthy demo - which
+  // is what happened the first time I wrote this. /healthz sends CORS headers,
+  // so only the real application can satisfy this check.
   fetch(window.DEMO_BASE + '/healthz', { cache: 'no-store' })
     .then(function(r){ return r.ok ? r.text() : ''; })
     .then(function(t){ decide(t.indexOf('scan-and-done ok') === 0); })
